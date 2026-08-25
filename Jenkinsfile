@@ -2,8 +2,6 @@ pipeline {
 
     agent any
 
-    // A configurer dans "Administrer Jenkins > Configuration globale des outils"
-    // (mêmes étapes que la Partie 4 du TP0 : Ajouter JDK / Ajouter Maven)
     tools {
         jdk 'JDK-21'
         maven 'Maven-3.9'
@@ -34,14 +32,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compilation du projet Maven'
-                sh 'mvn -B clean compile'
+                bat 'mvn -B clean compile'
             }
         }
 
         stage('Tests unitaires') {
             steps {
                 echo 'Exécution des tests JUnit/Mockito'
-                sh 'mvn -B test'
+                bat 'mvn -B test'
             }
             post {
                 always {
@@ -53,7 +51,7 @@ pipeline {
         stage('Analyse qualité - SonarQube') {
             steps {
                 withSonarQubeEnv('SonarServer') {
-                    sh "mvn -B sonar:sonar -Dsonar.projectKey=${SONAR_PROJECT_KEY}"
+                    bat "mvn -B sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%"
                 }
             }
         }
@@ -69,7 +67,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Génération du .jar'
-                sh 'mvn -B package -DskipTests'
+                bat 'mvn -B package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
@@ -80,7 +78,7 @@ pipeline {
             }
             steps {
                 echo "Publication de l'artefact sur Nexus (${params.ENVIRONNEMENT})"
-                sh 'mvn -B deploy -DskipTests'
+                bat 'mvn -B deploy -DskipTests'
             }
         }
     }
@@ -88,19 +86,37 @@ pipeline {
     post {
         success {
             echo 'Pipeline terminé avec succès.'
-            mail to: 'equipe-dev@pharmacie.local',
-                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Le build ${env.BUILD_NUMBER} du job ${env.JOB_NAME} a réussi.\nVoir : ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'equipe-dev@pharmacie.local',
+                         subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: "Le build ${env.BUILD_NUMBER} du job ${env.JOB_NAME} a réussi.\nVoir : ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Notification email non envoyée (SMTP non configuré) : ${e.message}"
+                }
+            }
         }
         unstable {
-            mail to: 'equipe-dev@pharmacie.local',
-                 subject: "UNSTABLE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Le build est instable (tests échoués ou Quality Gate en alerte).\nVoir : ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'equipe-dev@pharmacie.local',
+                         subject: "UNSTABLE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: "Le build est instable (tests échoués ou Quality Gate en alerte).\nVoir : ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Notification email non envoyée (SMTP non configuré) : ${e.message}"
+                }
+            }
         }
         failure {
-            mail to: 'equipe-dev@pharmacie.local',
-                 subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Le build ${env.BUILD_NUMBER} a échoué.\nVoir : ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'equipe-dev@pharmacie.local',
+                         subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: "Le build ${env.BUILD_NUMBER} a échoué.\nVoir : ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Notification email non envoyée (SMTP non configuré) : ${e.message}"
+                }
+            }
         }
     }
 }

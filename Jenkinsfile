@@ -5,8 +5,8 @@ pipeline {
     // A configurer dans "Administrer Jenkins > Configuration globale des outils"
     // (mêmes étapes que la Partie 4 du TP0 : Ajouter JDK / Ajouter Maven)
     tools {
-        jdk 'JDK21'
-        maven 'Maven3'
+        jdk 'JDK-21'
+        maven 'Maven-3.9'
     }
 
     options {

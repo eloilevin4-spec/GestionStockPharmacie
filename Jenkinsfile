@@ -5,7 +5,7 @@ pipeline {
     // A configurer dans "Administrer Jenkins > Configuration globale des outils"
     // (mêmes étapes que la Partie 4 du TP0 : Ajouter JDK / Ajouter Maven)
     tools {
-        jdk 'JDK17'
+        jdk 'JDK21'
         maven 'Maven3'
     }
 
@@ -27,7 +27,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Récupération du code source depuis Git (branche: ${env.BRANCH_NAME ?: 'main'})"
-                git branch: 'main', url: 'https://github.com/VOTRE_COMPTE/GestionStockPharmacie.git'
+                git branch: 'main', url: 'https://github.com/eloilevin4-spec/GestionStockPharmacie.git'
             }
         }
 

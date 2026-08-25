@@ -1,0 +1,8 @@
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\model\Medicament.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\GestionStockPharmacieApplication.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\service\MedicamentService.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\service\MedicamentServiceImpl.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\controller\MedicamentController.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\repository\MedicamentRepository.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\exception\MedicamentNotFoundException.java
+C:\Users\ELOI\Desktop\GestionStockPharmacie\src\main\java\com\pharmacie\stock\exception\StockInsuffisantException.java

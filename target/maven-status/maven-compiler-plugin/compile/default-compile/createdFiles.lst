@@ -1,0 +1,8 @@
+com\pharmacie\stock\model\Medicament.class
+com\pharmacie\stock\service\MedicamentService.class
+com\pharmacie\stock\exception\StockInsuffisantException.class
+com\pharmacie\stock\repository\MedicamentRepository.class
+com\pharmacie\stock\GestionStockPharmacieApplication.class
+com\pharmacie\stock\service\MedicamentServiceImpl.class
+com\pharmacie\stock\exception\MedicamentNotFoundException.class
+com\pharmacie\stock\controller\MedicamentController.class

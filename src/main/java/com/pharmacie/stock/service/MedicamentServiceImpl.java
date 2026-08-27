@@ -79,7 +79,7 @@ public class MedicamentServiceImpl implements MedicamentService {
         if (medicament.getQuantiteStock() < quantite) {
             throw new StockInsuffisantException(medicament.getNom(), quantite, medicament.getQuantiteStock());
         }
-        medicament.setQuantiteStock(medicament.getQuantiteStock() + quantite);
+        medicament.setQuantiteStock(medicament.getQuantiteStock() - quantite);
         return repository.save(medicament);
     }
 

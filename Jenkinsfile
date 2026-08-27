@@ -88,7 +88,7 @@ pipeline {
             echo 'Pipeline terminé avec succès.'
             script {
                 try {
-                    mail to: 'equipe-dev@pharmacie.local',
+                    mail to: 'eloilevin4@gmail.com',
                          subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                          body: "Le build ${env.BUILD_NUMBER} du job ${env.JOB_NAME} a réussi.\nVoir : ${env.BUILD_URL}"
                 } catch (e) {
@@ -99,7 +99,7 @@ pipeline {
         unstable {
             script {
                 try {
-                    mail to: 'equipe-dev@pharmacie.local',
+                    mail to: 'eloilevin4@gmail.com',
                          subject: "UNSTABLE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                          body: "Le build est instable (tests échoués ou Quality Gate en alerte).\nVoir : ${env.BUILD_URL}"
                 } catch (e) {
@@ -110,7 +110,7 @@ pipeline {
         failure {
             script {
                 try {
-                    mail to: 'equipe-dev@pharmacie.local',
+                    mail to: 'eloilevin4@gmail.com',
                          subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                          body: "Le build ${env.BUILD_NUMBER} a échoué.\nVoir : ${env.BUILD_URL}"
                 } catch (e) {

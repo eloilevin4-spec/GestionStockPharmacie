@@ -1,14 +1,15 @@
 package com.pharmacie.stock.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.pharmacie.stock.exception.MedicamentNotFoundException;
 import com.pharmacie.stock.exception.StockInsuffisantException;
 import com.pharmacie.stock.model.Medicament;
 import com.pharmacie.stock.repository.MedicamentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class MedicamentServiceImpl implements MedicamentService {
@@ -66,7 +67,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             throw new IllegalArgumentException("La quantité à ajouter doit être positive");
         }
         Medicament medicament = rechercherParId(id);
-        medicament.setQuantiteStock(medicament.getQuantiteStock() + quantite);
+        medicament.setQuantiteStock(medicament.getQuantiteStock() - quantite);
         return repository.save(medicament);
     }
 

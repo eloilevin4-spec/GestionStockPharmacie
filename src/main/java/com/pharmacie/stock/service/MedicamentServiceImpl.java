@@ -67,7 +67,7 @@ public class MedicamentServiceImpl implements MedicamentService {
             throw new IllegalArgumentException("La quantité à ajouter doit être positive");
         }
         Medicament medicament = rechercherParId(id);
-        medicament.setQuantiteStock(medicament.getQuantiteStock() - quantite);
+        medicament.setQuantiteStock(medicament.getQuantiteStock() + quantite);
         return repository.save(medicament);
     }
 
